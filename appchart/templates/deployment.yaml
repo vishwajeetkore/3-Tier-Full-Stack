@@ -1,1 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yelp-camp-deployment
 
+spec:
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+
+  selector:
+    matchLabels:
+      app: yelp-camp
+
+  template:
+    metadata:
+      labels:
+        app: yelp-camp
+
+    spec:
+      containers:
+        - name: yelp-container
+          image: 907260787494.dkr.ecr.us-east-1.amazonaws.com/camp:16
+          ports:
+            - containerPort: 3000
