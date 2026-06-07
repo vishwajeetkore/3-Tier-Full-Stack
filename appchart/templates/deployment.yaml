@@ -22,5 +22,61 @@ spec:
       containers:
         - name: yelp-container
           image: 907260787494.dkr.ecr.us-east-1.amazonaws.com/camp:16
+
           ports:
             - containerPort: 3000
+
+          env:
+            - name: CLOUDINARY_CLOUD_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: yelp-camp-secrets
+                  key: CLOUDINARY_CLOUD_NAME
+
+            - name: CLOUDINARY_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: yelp-camp-secrets
+                  key: CLOUDINARY_KEY
+
+            - name: CLOUDINARY_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: yelp-camp-secrets
+                  key: CLOUDINARY_SECRET
+
+            - name: MAPBOX_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: yelp-camp-secrets
+                  key: MAPBOX_TOKEN
+
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: yelp-camp-secrets
+                  key: DB_URL
+
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: yelp-camp-secrets
+                  key: SECRET
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
