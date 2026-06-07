@@ -47,7 +47,7 @@ secretName: yelp-camp-secrets
 
 secrets:
   CLOUDINARY_CLOUD_NAME: duqpuevli
-  CLOUDINARY_KEY: 848447446372297
+  CLOUDINARY_KEY: "848447446372297"
   CLOUDINARY_SECRET: KfJS47IfT4VA5UHDlbqFJbwaN_Y
   MAPBOX_TOKEN: sk.eyJ1IjoidmlzaHdhamVldGtvcmUiLCJhIjoiY21weWQwN2doMDVoMTJzcXkwMDIwZGdsYSJ9.KgEY2FuCuhJiqSY5RAsVkA
   DB_URL: "mongodb+srv://vishwajitkore2001_db_user:admin%40123@devopsdb.xs7o8ug.mongodb.net/?appName=devopsdb"
