@@ -1,19 +1,22 @@
 replicaCount: 2
 
 image:
-  repository: 907260787494.dkr.ecr.us-east-1.amazonaws.com/backend_product
+  repository: 907260787494.dkr.ecr.us-east-1.amazonaws.com/camp
   tag: latest
   pullPolicy: Always
 
 container:
-  name: products
+  name: yelpcamp
   port: 8080
 
+strategy:
+  type: RollingUpdate
+
 service:
-  name: productssvc
+  name: yelp-camp-service
   type: ClusterIP
-  port: 80
-  targetPort: 8080
+  port: 3000
+  targetPort: 3000
 
 resources:
   requests:
@@ -24,14 +27,14 @@ resources:
     memory: "512Mi"
 
 labels:
-  app: products
+  app: yelp-camp
 
 # ✅ ADD THIS BLOCK
 ingress:
   enabled: true
   className: nginx
   paths:
-    - path: /api
+    - path: /
       pathType: Prefix
 
 hpa:
@@ -39,3 +42,11 @@ hpa:
  minReplicas: 2
  maxReplicas: 5
  cpuUtilization: 50
+
+secrets:
+  CLOUDINARY_CLOUD_NAME: ZGlpMnJvenRw
+  CLOUDINARY_KEY: NzU3NjQzMjU3ODkxMzY0
+  CLOUDINARY_SECRET: SHpBeTdPU3VCZjJhSUFSUm5Fd0tIcEVtc01N MAPBOX_TOKEN: cGsuZXlKMUlqb2lZV1JwYW1GcGMzZGhiQ0lzSW1FaU9pSmpiSFl3TnpKemVHNHhaRzR5TW1wd1ltWm1OSFZ3YlhObUluMC5SVlFZc3UwUnZKZ0NGNTRrMjJkWDBB
+  DB_URL: bW9uZ29kYitzcnY6Ly9qYWlzd2FsYWRpMjQ2OnNjN1ZHU3lkN2RRQ2NMeTFAY2x1c3RlcjAuaXE2bXV0aC5tb25nb2RiLm5ldC8/cmV0cnlXcml0ZXM9dHJ1ZSZ3PW1ham9yaXR5JmFwcE5hbWU9Q2x1c3RlcjA=
+  SECRET: ZGV2b3Bzc2hhY2s= 
+
